@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { NoteDetail } from './NoteDetail';
-import { Note } from './Note';
+import { Note } from './domains';
 
 export function NoteList() {
   const [notes, setNotes] = useState([] as Note[]);

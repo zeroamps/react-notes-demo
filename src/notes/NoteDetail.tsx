@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Note } from './Note';
+import { Note } from './domains';
 
 export function NoteDetail({
   note,
