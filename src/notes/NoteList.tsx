@@ -1,28 +1,46 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+
 import { NoteDetail } from './NoteDetail';
 import { Note } from './domains';
 
 export function NoteList() {
   const [notes, setNotes] = useState([] as Note[]);
 
+  useEffect(() => {
+    const loadedNotes = localStorage.getItem('notes');
+    if (loadedNotes) {
+      setNotes(JSON.parse(loadedNotes) as Note[]);
+    }
+  }, []);
+
   function handleCreateNote() {
-    setNotes((notes) => [...notes, { id: uuidv4(), value: '' }]);
+    setNotes((notes) => {
+      const changedNotes = [...notes, { id: uuidv4(), value: '' }];
+      localStorage.setItem('notes', JSON.stringify(changedNotes));
+      return changedNotes;
+    });
   }
 
   function handleUpdateNote(id: string, value: string) {
-    setNotes((notes) =>
-      notes.map((note) => {
+    setNotes((notes) => {
+      const changedNotes = notes.map((note) => {
         if (note.id === id) {
           note.value = value;
         }
         return note;
-      })
-    );
+      });
+      localStorage.setItem('notes', JSON.stringify(changedNotes));
+      return changedNotes;
+    });
   }
 
   function handleDeleteNote(id: string) {
-    setNotes((notes) => notes.filter((note) => note.id !== id));
+    setNotes((notes) => {
+      const changedNotes = notes.filter((note) => note.id !== id);
+      localStorage.setItem('notes', JSON.stringify(changedNotes));
+      return changedNotes;
+    });
   }
 
   const listOfNotes = notes.map((note) => (
