@@ -1,46 +1,26 @@
-import { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useReducer } from 'react';
 
 import { NoteDetail } from './NoteDetail';
 import { Note } from './domains';
+import { notesReducer } from './notesReducer';
 
 export function NoteList() {
-  const [notes, setNotes] = useState([] as Note[]);
+  const [notes, dispatch] = useReducer(notesReducer, [] as Note[]);
 
   useEffect(() => {
-    const loadedNotes = localStorage.getItem('notes');
-    if (loadedNotes) {
-      setNotes(JSON.parse(loadedNotes) as Note[]);
-    }
+    dispatch({ type: 'reload' });
   }, []);
 
   function handleCreateNote() {
-    setNotes((notes) => {
-      const changedNotes = [...notes, { id: uuidv4(), value: '' }];
-      localStorage.setItem('notes', JSON.stringify(changedNotes));
-      return changedNotes;
-    });
+    dispatch({ type: 'create' });
   }
 
   function handleUpdateNote(id: string, value: string) {
-    setNotes((notes) => {
-      const changedNotes = notes.map((note) => {
-        if (note.id === id) {
-          note.value = value;
-        }
-        return note;
-      });
-      localStorage.setItem('notes', JSON.stringify(changedNotes));
-      return changedNotes;
-    });
+    dispatch({ type: 'update', id, value });
   }
 
   function handleDeleteNote(id: string) {
-    setNotes((notes) => {
-      const changedNotes = notes.filter((note) => note.id !== id);
-      localStorage.setItem('notes', JSON.stringify(changedNotes));
-      return changedNotes;
-    });
+    dispatch({ type: 'delete', id });
   }
 
   const listOfNotes = notes.map((note) => (

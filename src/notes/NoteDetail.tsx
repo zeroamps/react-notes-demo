@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { Note } from './domains';
 
-export function NoteDetail({
-  note,
-  onUpdate,
-  onDelete
-}: {
+interface Props {
   note: Note;
   onUpdate: (id: string, value: string) => void;
   onDelete: (id: string) => void;
-}) {
+}
+
+export function NoteDetail({ note, onUpdate, onDelete }: Props) {
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(note.value);
 
