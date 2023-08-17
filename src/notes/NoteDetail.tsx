@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { DeleteNoteButton } from './DeleteNoteButton';
 import { Note } from './domains';
 
@@ -49,7 +50,9 @@ export function NoteDetail({ note, onUpdate, onDelete }: Props) {
           onChange={(e) => setValue(e.target.value)}
           placeholder="What is your new note?"></textarea>
       ) : (
-        <p className="p-3">{note.value.length === 0 ? 'What is your new note?' : note.value}</p>
+        <div className="prose-sm p-3">
+          {note.value.length === 0 ? 'What is your new note?' : <ReactMarkdown>{note.value}</ReactMarkdown>}
+        </div>
       )}
 
       <div className="text-right text-xs text-gray-600">{note.changed.toLocaleString()}</div>
