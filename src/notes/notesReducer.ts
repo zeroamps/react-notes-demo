@@ -11,13 +11,16 @@ export function notesReducer(notes: Note[], action: NotesReducerAction) {
     case 'reload': {
       const loadedNotes = localStorage.getItem('notes');
       if (loadedNotes) {
-        return JSON.parse(loadedNotes) as Note[];
+        return JSON.parse(loadedNotes, (key, value) => {
+          if (key === 'changed') return new Date(value);
+          return value;
+        }) as Note[];
       }
       return [];
     }
 
     case 'create': {
-      const changedNotes = [...notes, { id: uuidv4(), value: '' }];
+      const changedNotes = [...notes, { id: uuidv4(), value: '', changed: new Date() }];
       localStorage.setItem('notes', JSON.stringify(changedNotes));
       return changedNotes;
     }
@@ -26,6 +29,7 @@ export function notesReducer(notes: Note[], action: NotesReducerAction) {
       const changedNotes = notes.map((note) => {
         if (note.id === action.id) {
           note.value = action.value;
+          note.changed = new Date();
         }
         return note;
       });

@@ -51,6 +51,8 @@ export function NoteDetail({ note, onUpdate, onDelete }: Props) {
       ) : (
         <p className="p-3">{note.value.length === 0 ? 'What is your new note?' : note.value}</p>
       )}
+
+      <div className="text-right text-xs text-gray-600">{note.changed.toLocaleString()}</div>
     </div>
   );
 }
