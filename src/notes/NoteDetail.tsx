@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { DeleteNoteButton } from './DeleteNoteButton';
 import { Note } from './domains';
 
 interface Props {
@@ -38,10 +39,7 @@ export function NoteDetail({ note, onUpdate, onDelete }: Props) {
             Edit
           </button>
         )}
-
-        <button className="rounded-lg bg-red-900 px-3 py-1 text-xs text-white" onClick={() => onDelete(note.id)}>
-          Delete
-        </button>
+        <DeleteNoteButton note={note} onDelete={onDelete} />
       </div>
 
       {editing ? (

@@ -1,11 +1,10 @@
 import { useEffect, useReducer } from 'react';
 
 import { NoteDetail } from './NoteDetail';
-import { Note } from './domains';
 import { notesReducer } from './notesReducer';
 
 export function NoteList() {
-  const [notes, dispatch] = useReducer(notesReducer, [] as Note[]);
+  const [notes, dispatch] = useReducer(notesReducer, []);
 
   useEffect(() => {
     dispatch({ type: 'reload' });

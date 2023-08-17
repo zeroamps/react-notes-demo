@@ -13,7 +13,7 @@ export function notesReducer(notes: Note[], action: NotesReducerAction) {
       if (loadedNotes) {
         return JSON.parse(loadedNotes) as Note[];
       }
-      return [] as Note[];
+      return [];
     }
 
     case 'create': {
