@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Note } from './domains';
 
-export type NotesReducerAction =
+type NotesReducerAction =
   | { type: 'reload' | 'create' }
   | { type: 'update'; id: string; value: string }
   | { type: 'delete'; id: string };

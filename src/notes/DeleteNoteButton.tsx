@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 import { Note } from './domains';
 
-export interface Props {
+type Props = {
   note: Note;
   onDelete: (id: string) => void;
-}
+};
 
 export function DeleteNoteButton({ note, onDelete }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);

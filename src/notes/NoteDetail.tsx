@@ -3,11 +3,11 @@ import ReactMarkdown from 'react-markdown';
 import { DeleteNoteButton } from './DeleteNoteButton';
 import { Note } from './domains';
 
-interface Props {
+type Props = {
   note: Note;
   onUpdate: (id: string, value: string) => void;
   onDelete: (id: string) => void;
-}
+};
 
 export function NoteDetail({ note, onUpdate, onDelete }: Props) {
   const [editing, setEditing] = useState(false);
