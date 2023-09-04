@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Note } from './domains';
 
+const LOCAL_STORAGE_NOTES_KEY = 'f4cf9eca-2db9-403d-9797-544d864da28f-notes';
+
 type NotesReducerAction =
   | { type: 'reload' | 'create' }
   | { type: 'update'; id: string; value: string }
@@ -9,7 +11,7 @@ type NotesReducerAction =
 export function notesReducer(notes: Note[], action: NotesReducerAction) {
   switch (action.type) {
     case 'reload': {
-      const loadedNotes = localStorage.getItem('notes');
+      const loadedNotes = localStorage.getItem(LOCAL_STORAGE_NOTES_KEY);
       if (loadedNotes) {
         return JSON.parse(loadedNotes, (key, value) => {
           if (key === 'changed') return new Date(value);
@@ -21,7 +23,7 @@ export function notesReducer(notes: Note[], action: NotesReducerAction) {
 
     case 'create': {
       const changedNotes = [...notes, { id: uuidv4(), value: '', changed: new Date() }];
-      localStorage.setItem('notes', JSON.stringify(changedNotes));
+      localStorage.setItem(LOCAL_STORAGE_NOTES_KEY, JSON.stringify(changedNotes));
       return changedNotes;
     }
 
@@ -33,13 +35,13 @@ export function notesReducer(notes: Note[], action: NotesReducerAction) {
         }
         return note;
       });
-      localStorage.setItem('notes', JSON.stringify(changedNotes));
+      localStorage.setItem(LOCAL_STORAGE_NOTES_KEY, JSON.stringify(changedNotes));
       return changedNotes;
     }
 
     case 'delete': {
       const changedNotes = notes.filter((note) => note.id !== action.id);
-      localStorage.setItem('notes', JSON.stringify(changedNotes));
+      localStorage.setItem(LOCAL_STORAGE_NOTES_KEY, JSON.stringify(changedNotes));
       return changedNotes;
     }
   }
