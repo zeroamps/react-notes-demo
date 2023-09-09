@@ -1,14 +1,13 @@
-import { useEffect, useReducer } from 'react';
-
+import { useEffect } from 'react';
 import { NoteDetail } from './NoteDetail';
-import { notesReducer } from './notesReducer';
+import { useNotesReducer } from '../hooks/useNotesReducer';
 
 export function NoteList() {
-  const [notes, dispatch] = useReducer(notesReducer, []);
+  const [notes, dispatch] = useNotesReducer();
 
   useEffect(() => {
     dispatch({ type: 'reload' });
-  }, []);
+  }, [dispatch]);
 
   function handleCreateNote() {
     dispatch({ type: 'create' });

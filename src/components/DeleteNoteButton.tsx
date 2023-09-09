@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Note } from './domains';
+import { Note } from '../domains';
 
 type Props = {
   note: Note;

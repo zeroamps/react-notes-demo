@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { DeleteNoteButton } from './DeleteNoteButton';
-import { Note } from './domains';
+import { Note } from '../domains';
 
 type Props = {
   note: Note;

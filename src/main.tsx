@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { Toolbar } from './layout/Toolbar';
-import { NoteList } from './notes/NoteList';
+import { Toolbar } from './components/Toolbar';
+import { NoteList } from './components/NoteList';
 
 import './styles.css';
 
