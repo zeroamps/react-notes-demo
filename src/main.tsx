@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-import { Toolbar } from './components/Toolbar';
+import { Toolbar } from './components/Header';
 import { NoteList } from './components/NoteList';
 
 import './styles.css';
